@@ -29,7 +29,7 @@ options(tigris_use_cache = TRUE)
 # -----------------------------------------------------------------------------
 
 # Paths resolve relative to the project root via here::here().
-PREP_DIR <- here::here("Data", "prepared")
+PREP_DIR <- here::here("data", "prepared")
 FIG_DIR  <- here::here("figures")
 dir.create(FIG_DIR, showWarnings = FALSE, recursive = TRUE)
 
