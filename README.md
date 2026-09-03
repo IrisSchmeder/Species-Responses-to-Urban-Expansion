@@ -1,5 +1,5 @@
 # Code for Schmeder et al.
-This repository contains the code for the manuscript "Divergent Species Responses to 200 Years of Urban Expansion Across Texas" submitted to Conservation Biology. It provides a pipeline to combine historical museum records with modern community science observations to model species occurrences in response to urbanization. The example demonstrated here uses eight herpetofauna species native to Texas.
+This repository contains the code for the manuscript "Herpetofaunal Responses to Urban Expansion: Insights from Combining Two Texas Occurrence Datasets" submitted to Conservation Biology. It provides a pipeline to combine historical museum records with modern community science observations to model species occurrences in response to urbanization. The example demonstrated here uses eight herpetofauna species native to Texas.
 
 ## Abstract
 
@@ -23,7 +23,7 @@ The analysis uses downloaded data available from VertNet and iNaturalist.
 
 ### Supplementary Figures
 - [08_RecordsPerObserver.R](08_RecordsPerObserver.R): Calculates records per observer over time, by species and dataset (SI figure 1).
-- [09_TexasEcoregionsMap.R](09_TexasEcoregionsMap.R): Produces map of level III ecoregions urbanized areas, major cities,  and the top four museums represented in VertNet herpetology records in Texas (SI figure 2).
+- [09_TexasProvincesMap.R](09_TexasProvincesMap.R): Produces map of level III ecoregions urbanized areas, major cities,  and the top four museums represented in VertNet herpetology records in Texas (SI figure 2).
 - [10_TexasImperviousMap.R](10_TexasImperviousMap.R): Produces map of percent impervious cover by county, major cities, and the top four museums represented in VertNet herpetology records in Texas (SI figure 3).
 
 ## Notes
