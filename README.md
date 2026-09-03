@@ -5,7 +5,7 @@ This repository contains the code for the manuscript "Herpetofaunal Responses to
 
 
 ## Data
-The analysis uses downloaded data available from VertNet and iNaturalist.
+The analysis uses downloaded data available from VertNet and iNaturalist. We also use landcover data from NLCD (https://www.mrlc.gov/data) and an urbanization raster from Texas Department of Transportation (https://gis-txdot.opendata.arcgis.com/datasets/6aeee12f605d4b0b9fc74b31d2ea4ea5_0/about).
 
 ## Scripts
 ### Data Prep & Info
