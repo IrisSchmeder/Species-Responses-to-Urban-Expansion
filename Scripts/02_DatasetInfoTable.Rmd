@@ -1,0 +1,63 @@
+---
+# =============================================================================
+# 02_DatasetInfoTable.Rmd
+# Occurrence records and initial filtering (removed records without year and/or county) # summary for VertNet and iNaturalist datasets by species.
+# Read values from county_year_summary and original unflitered csvs
+#
+# OUTPUT: DatasetInfoTable.pdf
+#         [Table 1]
+# =============================================================================
+
+title: "DatasetInfoTable"
+output: pdf_document
+date: "2026-04-17"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{r, results='asis'}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+
+df <- tribble(
+  ~Species, ~CommonName,
+  ~VertNetUnfiltered, ~VertNetFiltered, ~VertNetRemoved, ~VertNetCollectors, ~VertNetInstitutions,
+  ~iNatUnfiltered, ~iNatFiltered, ~iNatRemoved, ~iNatUsers,
+  "A. punctatus", "Red-spotted toad", 2244, 1901, 343, 498, 29, 1349, 1282, 67, 521,
+  "A. woodhousii", "Woodhouse’s toad", 4698, 3694, 1004, 821, 35, 2116, 1983, 133, 1019,
+  "I. nebulifer", "Gulf Coast toad", 5647, 4518, 1129, 962, 38, 30779, 28463, 2316, 10942,
+  "Co. texanus", "Greater earless lizard", 4334, 3577, 767, 751, 30, 4371, 4213, 158, 2123,
+  "Cr. collaris", "Texas collared lizard", 3355, 2693, 662, 761, 34, 1542, 1482, 60, 817,
+  "P. cornutum", "Texas horned lizard", 3638, 2890, 748, 984, 37, 5480, 2230, 3250, 427,
+  "Te. ornata", "Ornate box turtle", 1253, 1049, 204, 465, 32, 1980, 823, 1157, 230,
+  "Tr. scripta", "Pond slider", 2836, 1959, 877, 526, 29, 39654, 38477, 1177, 9583 
+)
+
+df %>%
+  mutate(Species = paste0("\\textit{", Species, "}")) %>%
+  kable(
+    format = "latex",
+    booktabs = TRUE,
+    escape = FALSE,
+    col.names = c(
+      "Species", "Common name",
+      "Unfiltered", "Filtered", "Removed", "Collectors", "Institutions",
+      "Unfiltered", "Filtered", "Removed", "Users"
+    ),
+    align = c("l", "l", rep("r", 9)),
+    caption = "Occurrence records and filtering summary for VertNet and iNaturalist datasets across focal species."
+  ) %>%
+  add_header_above(c(
+    " " = 2,
+    "VertNet" = 5,
+    "iNaturalist" = 4
+  )) %>%
+  kable_styling(
+    latex_options = c("hold_position", "scale_down")
+  )
+```
+
