@@ -26,9 +26,9 @@ conflicted::conflicts_prefer(dplyr::select)
 
 # Paths resolve relative to the project root via here::here(), so the repo
 # runs unchanged on any machine as long as the folder layout is preserved.
-DATA_DIR  <- here::here("data", "raw")   # occurrence CSVs (VertNet + iNat)
-NLCD_PATH <- here::here("data", "NLCD", "Annual_NLCD_FctImp_2024_CU_C1V1.tif")
-OUT_DIR   <- here::here("data", "prepared")
+DATA_DIR  <- here::here("Data", "raw")   # occurrence CSVs (VertNet + iNat)
+NLCD_PATH <- here::here("Data", "NLCD", "Annual_NLCD_FctImp_2024_CU_C1V1.tif")
+OUT_DIR   <- here::here("Data", "prepared")
 FIG_DIR   <- here::here("figures")
 
 # Directory holding the new iNat CSVs (same folder as the occurrence CSVs)

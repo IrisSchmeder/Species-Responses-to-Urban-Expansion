@@ -29,14 +29,14 @@ options(tigris_use_cache = TRUE)
 # -----------------------------------------------------------------------------
 
 # Paths resolve relative to the project root via here::here().
-PREP_DIR <- here::here("data", "prepared")
+PREP_DIR <- here::here("Data", "prepared")
 FIG_DIR  <- here::here("figures")
 dir.create(FIG_DIR, showWarnings = FALSE, recursive = TRUE)
 
 texas_counties <- readRDS(file.path(PREP_DIR, "texas_counties.rds"))
 county_imperv  <- readRDS(file.path(PREP_DIR, "county_imperv.rds"))
 
-urban_shp <- st_read(here::here("data", "TxDOT_UrbanizedAreas",
+urban_shp <- st_read(here::here("Data", "TxDOT_UrbanizedAreas",
                                 "TxDOT_Urbanized_Areas.shp"))
 
 muse_raw <- tibble(
