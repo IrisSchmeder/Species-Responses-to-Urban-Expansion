@@ -69,6 +69,54 @@ dir.create(OUT_DIR, showWarnings = FALSE, recursive = TRUE)
 dir.create(FIG_DIR, showWarnings = FALSE, recursive = TRUE)
 
 # -----------------------------------------------------------------------------
+# Download NLCD impervious raster (+ sidecars) from Zenodo if not present
+# -----------------------------------------------------------------------------
+# The raster is ~944 MB, too large to host on GitHub, so it is archived on
+# Zenodo (record 22309559) and fetched into data/NLCD/ on first run. The two
+# sidecar files (.aux.xml stats pyramid, .xml metadata) must sit alongside the
+# .tif with matching names for terra to read them. Downloads are skipped if the
+# files already exist, so re-running the script is cheap.
+NLCD_DIR <- here::here("data", "NLCD")
+dir.create(NLCD_DIR, showWarnings = FALSE, recursive = TRUE)
+
+NLCD_DOWNLOADS <- list(
+  "Annual_NLCD_FctImp_2024_CU_C1V1.tif" =
+    "https://zenodo.org/records/22309559/files/Annual_NLCD_FctImp_2024_CU_C1V1.tif?download=1",
+  "Annual_NLCD_FctImp_2024_CU_C1V1.tif.aux.xml" =
+    "https://zenodo.org/records/22309559/files/Annual_NLCD_FctImp_2024_CU_C1V1.tif.aux.xml?download=1",
+  "Annual_NLCD_FctImp_2024_CU_C1V1.xml" =
+    "https://zenodo.org/records/22309559/files/Annual_NLCD_FctImp_2024_CU_C1V1.xml?download=1"
+)
+
+cat("--- Checking NLCD data (Zenodo record 22309559) ---\n")
+old_timeout <- getOption("timeout")
+options(timeout = 3600)   # ~944 MB file; default 60s will time out
+on.exit(options(timeout = old_timeout), add = TRUE)
+
+for (fname in names(NLCD_DOWNLOADS)) {
+  dest <- file.path(NLCD_DIR, fname)
+  if (file.exists(dest)) {
+    cat(sprintf("  [have] %s\n", fname))
+    next
+  }
+  cat(sprintf("  [get ] %s ...\n", fname))
+  ok <- tryCatch({
+    download.file(NLCD_DOWNLOADS[[fname]], dest, mode = "wb", quiet = FALSE)
+    TRUE
+  }, error = function(e) {
+    if (file.exists(dest)) unlink(dest)   # remove partial download
+    message("    download failed: ", conditionMessage(e))
+    FALSE
+  })
+  if (!ok || !file.exists(dest))
+    stop(sprintf(paste0(
+      "Could not download '%s' from Zenodo.\n",
+      "Check your connection, or download the three files manually from\n",
+      "https://zenodo.org/records/22309559 into %s"), fname, NLCD_DIR))
+}
+cat("\n")
+
+# -----------------------------------------------------------------------------
 # Helpers
 # -----------------------------------------------------------------------------
 
