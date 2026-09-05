@@ -2,14 +2,7 @@
 # 03_RecordAccumulation.R
 # Temporal coverage bias: record accumulation curves over time.
 #
-# DEPENDENCIES: run 01_DataPrep.R first or load temporal_data.
-#
-# Expected columns in temporal_data:
-#   Species          (character, e.g. "A. punctatus")
-#   Dataset          (character: "VertNet" | "iNaturalist")
-#   year             (integer)
-#   RecordCount      (integer — annual record count per species x dataset)
-#   UniqueCollectors (integer — annual unique observer count per species x dataset)
+# DEPENDENCIES: run 01_DataPrep.R first
 # 
 # OUTPUT: record_accumulation.pdf / .png
 #         [Figure 1]
