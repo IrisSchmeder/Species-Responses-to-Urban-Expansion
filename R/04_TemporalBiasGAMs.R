@@ -3,8 +3,7 @@
 # Negative-binomial GAMs for record counts and unique observers over time.
 # Produces a two-panel combined figure: (a) records, (b) observers.
 #
-# DEPENDENCIES: run 01_DataPrep.R first, or load prepared objects:
-#   temporal_data, SPECIES_LEVELS
+# DEPENDENCIES: run 01_DataPrep.R first
 #
 # OUTPUT: temporal_records_observers.pdf / .png
 #         [Figure 2]
@@ -15,7 +14,7 @@ library(here)          # project-root-relative paths
 library(mgcv)
 library(cowplot)
 library(conflicted)
-library(rphylopic)     # species silhouettes for facet corners
+library(rphylopic)     
 conflicted::conflicts_prefer(dplyr::filter)
 conflicted::conflicts_prefer(dplyr::select)
 
@@ -37,7 +36,6 @@ italic_species <- function(x) {
   factor(paste0("italic('", as.character(x), "')"), levels = ITALIC_LEVELS)
 }
 
-# Font sizes bumped up substantially across the board.
 paper_theme <- theme_bw(base_size = 22) +
   theme(
     axis.title       = element_text(size = 26),
@@ -77,8 +75,6 @@ mirrored_species <- c("A. punctatus", "A. woodhousii", "I. nebulifer",
 
 # Build placement table from whatever x/y columns a given plot uses.
 # `df` is the plotted data; xvar/yvar are the aesthetics driving the panels.
-# NOTE: pass the union of the plotted points AND the GAM ribbon so ranges
-# reflect what's actually rendered (ribbon high can exceed the point max).
 build_phylopic_positions <- function(df, xvar, yvar, lookup = phylopic_lookup,
                                      cfg = PHYLOPIC_CFG,
                                      mirrored = mirrored_species,
