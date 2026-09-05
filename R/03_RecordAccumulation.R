@@ -8,12 +8,12 @@
 #         [Figure 1]
 # =============================================================================
 
-library(tidyverse)     # dplyr, ggplot2, tidyr, purrr, stringr
-library(here)          # project-root-relative paths
-library(mgcv)          # gam, nb()
-library(patchwork)     # wrap_plots (if needed)
-library(cowplot)       # plot_grid
-library(sf)            # only if spatial plots added later
+library(tidyverse)    
+library(here)         
+library(mgcv)          
+library(patchwork)     
+library(cowplot)       
+library(sf)            
 library(rphylopic)
 
 # -----------------------------------------------------------------------------
