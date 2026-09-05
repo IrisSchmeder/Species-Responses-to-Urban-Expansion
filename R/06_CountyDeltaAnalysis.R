@@ -9,16 +9,16 @@
 #         [Figure 5] AND [Figure 4]
 # =============================================================================
 
-library(tidyverse)     # dplyr, ggplot2, tidyr, purrr
-library(here)          # project-root-relative paths
-library(conflicted)    # resolve namespace conflicts
-library(sf)            # spatial operations
-library(lme4)          # glmer
-library(emmeans)       # emtrends
-library(viridis)       # colour scales
-library(patchwork)     # combining plots
-library(scales)        # squish
-library(rphylopic)      # species silhouettes for plot labels
+library(tidyverse)    
+library(here)         
+library(conflicted)   
+library(sf)            
+library(lme4)         
+library(emmeans)       
+library(viridis)      
+library(patchwork)     
+library(scales)       
+library(rphylopic)     
 
 conflicted::conflicts_prefer(dplyr::select)
 conflicted::conflicts_prefer(dplyr::filter)
@@ -278,17 +278,6 @@ for (sp in species_list) {
       inherit.aes = FALSE, color = "gray20",
       height = sp_height, horizontal = sp_mirrored
     ) +
-    # scale_fill_gradient2(
-    #   low = "#009E73", mid = "#F7F7F7", high = "#D55E00",
-    #   midpoint = 0, limits = c(-log_cap, log_cap), oob = squish,
-    #   na.value = "gray30",
-    #   name   = "\nLog Difference\n(iNaturalist - VertNet)\n",
-    #   breaks = c(-log_cap, 0, log_cap),
-    #   labels = c(
-    #     sprintf("%.1f", -log_cap),
-    #     "0",
-    #     sprintf("%.1f", log_cap)
-    #   )) +
     scale_fill_gradient2(
       low = "#009E73", mid = "#F7F7F7", high = "#D55E00",
       midpoint = 0, limits = c(-log_cap, log_cap), oob = squish,
