@@ -52,9 +52,6 @@ paper_theme <- theme_bw(base_size = 22) +
 # -----------------------------------------------------------------------------
 # Reusable phylopic placement
 # -----------------------------------------------------------------------------
-# Fixed placement fractions - consistent across ALL plots regardless of data.
-# Tie x to a hard year (x_hard) when every panel shares an x-axis; set x_hard
-# to NULL to fall back to x_frac for plots where the x range varies per panel.
 PHYLOPIC_CFG <- list(
   x_frac  = 0.20,   # fraction across x-axis range (used when x_hard is NULL)
   y_frac  = 0.68,   # fraction up y-axis range (May need to change depending on edf sizing)
