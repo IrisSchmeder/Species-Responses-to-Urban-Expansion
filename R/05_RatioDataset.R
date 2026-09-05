@@ -11,7 +11,7 @@
 # =============================================================================
 
 library(tidyverse)
-library(here)          # project-root-relative paths
+library(here)         
 library(grid)
 library(gridExtra)
 library(cowplot)
