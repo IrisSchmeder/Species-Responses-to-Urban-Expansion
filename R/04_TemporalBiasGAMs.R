@@ -10,7 +10,7 @@
 # =============================================================================
 
 library(tidyverse)
-library(here)          # project-root-relative paths
+library(here)         
 library(mgcv)
 library(cowplot)
 library(conflicted)
