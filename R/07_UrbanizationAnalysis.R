@@ -1,6 +1,6 @@
 # =============================================================================
 # 07_UrbanizationAnalysis.R
-# Urbanization trends, impervious-surface models, and HILDA+ GAMs.
+# Urbanization trends, impervious-surface models
 #
 # DEPENDENCIES: run 01_DataPrep.R first
 #
