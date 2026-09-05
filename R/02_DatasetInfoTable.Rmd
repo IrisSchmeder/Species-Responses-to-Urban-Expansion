@@ -2,7 +2,7 @@
 # =============================================================================
 # 02_DatasetInfoTable.Rmd
 # Occurrence records and initial filtering (removed records without year and/or county) # summary for VertNet and iNaturalist datasets by species.
-# Read values from county_year_summary and original unflitered csvs
+# Read values from 01_DataPrep and original unflitered csvs
 #
 # OUTPUT: DatasetInfoTable.pdf
 #         [Table 1]
