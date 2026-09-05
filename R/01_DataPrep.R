@@ -8,7 +8,7 @@
 # =============================================================================
 
 library(sf)          
-library(here)         
+library(here)   # project-root-relative paths       
 library(tidyverse)    
 library(conflicted)  
 library(tigris)        
