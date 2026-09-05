@@ -4,8 +4,7 @@
 # Shows the proportion of records from each dataset within each county,
 # ranked by iNaturalist proportion.
 #
-# DEPENDENCIES: run 01_DataPrep.R first, or load prepared objects:
-#   urbanization_raw, SPECIES_LEVELS
+# DEPENDENCIES: run 01_DataPrep.R first
 #
 # OUTPUT: Figure_ObsRatio_VertNet_iNat_by_county.pdf / .png
 #         [Figure 3]
@@ -17,7 +16,7 @@ library(grid)
 library(gridExtra)
 library(cowplot)
 library(conflicted)
-library(rphylopic)     # species silhouettes for plot corners
+library(rphylopic)    
 conflicted::conflicts_prefer(dplyr::filter)
 conflicted::conflicts_prefer(dplyr::select)
 
@@ -34,7 +33,6 @@ SPECIES_LEVELS <- readRDS(file.path(PREP_DIR, "SPECIES_LEVELS.rds"))
 COLOURS <- c("iNat_prop"    = "#D55E00",   
              "VertNet_prop" = "#009E73")   
 
-# Font sizes bumped up substantially across the board.
 paper_theme <- theme_bw(base_size = 22) +
   theme(
     axis.title       = element_text(size = 26),
@@ -50,11 +48,6 @@ paper_theme <- theme_bw(base_size = 22) +
 # =============================================================================
 # Reusable phylopic placement
 # =============================================================================
-# Fixed placement fractions — consistent across ALL plots regardless of data.
-# Here the x-axis is county RANK (different length per species) so x_hard is
-# NULL and x falls back to x_frac. The y-axis is a fixed 0-1 proportion for
-# every species, so y_min/y_max are hard-set to 0/1 rather than derived from
-# data, and y_frac/h_frac are taken against that fixed range.
 PHYLOPIC_CFG <- list(
   x_frac  = 0.20,   # fraction across x-axis (county-rank) range
   y_frac  = 0.85,   # fraction up the fixed 0-1 y range
