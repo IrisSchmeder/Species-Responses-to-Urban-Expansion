@@ -1,8 +1,6 @@
 # =============================================================================
 # 08_RecordsPerObserver.R
 # Records per observer over time, by species and dataset.
-# Restyled to match 03_RecordAccumulation.R (paper_theme, label_parsed italic
-# facets, shared silhouettes, fraction-based phylopic placement).
 #
 # DEPENDENCIES: run 01_DataPrep.R first
 #
@@ -10,12 +8,12 @@
 #         [SI Figure 1]
 # =============================================================================
 
-library(tidyverse)     # dplyr, ggplot2, tidyr, purrr
-library(here)          # project-root-relative paths
-library(conflicted)    # resolve namespace conflicts
-library(broom)         # tidy() for the slope regression table
-library(mgcv)          # gam(), backs geom_smooth(method = "gam")
-library(rphylopic)     # species silhouettes for plot corners
+library(tidyverse)     
+library(here)         
+library(conflicted)   
+library(broom)         
+library(mgcv)          
+library(rphylopic)   
 
 conflicted::conflicts_prefer(dplyr::filter)
 conflicted::conflicts_prefer(dplyr::select)
@@ -56,9 +54,7 @@ paper_theme <- theme_bw(base_size = 16) +
     panel.spacing    = unit(1, "lines")
   )
 
-# Italic facet labels in canonical order (matches 03): returns a factor whose
-# levels are plotmath italic('...') strings, so label_parsed renders italics
-# while the facet order stays locked to SPECIES_LEVELS.
+# Italic facet labels in canonical order 
 ITALIC_LEVELS <- paste0("italic('", SPECIES_LEVELS, "')")
 italic_species <- function(x) {
   factor(paste0("italic('", as.character(x), "')"), levels = ITALIC_LEVELS)
@@ -77,11 +73,8 @@ temporal_data <- temporal_data %>%
   )
 
 # =============================================================================
-# 2. Reusable phylopic placement (matches 03: shared silhouettes + fractions)
+# 2. Reusable phylopic placement
 # =============================================================================
-# Fixed placement fractions - consistent across ALL plots regardless of data.
-# Tie x to a hard year (x_hard) when every panel shares an x-axis; set x_hard
-# to NULL to fall back to x_frac for plots where the x range varies per panel.
 PHYLOPIC_CFG <- list(
   x_frac  = 0.20,   # fraction across x-axis range (used when x_hard is NULL)
   y_frac  = 0.9,    # fraction up y-axis range
@@ -100,8 +93,7 @@ mirrored_species <- c("A. punctatus", "A. woodhousii", "I. nebulifer",
                       "Co. texanus", "Cr. collaris", "P. cornutum",
                       "Te. ornata", "Tr. scripta")
 
-# Build placement table from whatever x/y columns a given plot uses.
-# `df` is the plotted data; xvar/yvar are the aesthetics driving the panels.
+# Build placement table 
 build_phylopic_positions <- function(df, xvar, yvar, lookup = phylopic_lookup,
                                      cfg = PHYLOPIC_CFG,
                                      mirrored = mirrored_species,
@@ -157,10 +149,6 @@ plot_data <- temporal_data %>%
 # -----------------------------------------------------------------------------
 # Significance asterisks + GAM stats table
 # -----------------------------------------------------------------------------
-# geom_smooth(method = "gam") fits its model internally and doesn't expose
-# any of this - so this refits the SAME smooth structure
-# (RecordsPerObserver ~ s(year, k = 5)) once per Species x Dataset purely to
-# pull the smooth term's edf and p-value out via summary(model)$s.table.
 # Wrapped in tryCatch since a handful of species x dataset combos may have
 # too few distinct years for a k = 5 smooth to fit.
 get_smooth_stats <- function(data) {
@@ -199,10 +187,7 @@ sig_labels <- gam_stats %>%
     Species     = italic_species(Species)
   )
 
-# -----------------------------------------------------------------------------
-# Plot base (thematically matched to 03: label_parsed italic facets, COLOURS,
-# paper_theme, blank strip background, square panels)
-# -----------------------------------------------------------------------------
+# Plot 
 sifig1 <- plot_data %>%
   mutate(Species = italic_species(Species)) %>%
   ggplot(aes(x = year, y = RecordsPerObserver, color = Dataset, fill = Dataset)) +
