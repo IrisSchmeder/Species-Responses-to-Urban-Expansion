@@ -20,7 +20,7 @@ All paths are resolved relative to the project root using the [`here`](https://h
 │   ├── NLCD/                       # NLCD fractional impervious raster (.tif)
 │   ├── TexasBioticProvinces/       # Texas biotic provinces shapefile
 │   ├── TxDOT_UrbanizedAreas/       # TxDOT urbanized-areas shapefile
-│   ├── PADUS4_1_State_TX_GDB_KMZ/  # GBD file with Texas land ownershi (USGS)
+│   ├── PADUS4_1_State_TX_GDB_KMZ/  # GBD file with Texas land ownership data (USGS)
 │   └── prepared/                   # generated .rds objects (created by 01)
 ├── figures/                        # generated figures (created by scripts)
 ├── results/                        # generated summary tables (created by scripts)
