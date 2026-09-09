@@ -1,6 +1,6 @@
 # =============================================================================
 # 07_UrbanizationAnalysis.R
-# Urbanization trends, impervious-surface models, and HILDA+ GAMs.
+# Urbanization trends, impervious-surface models
 #
 # DEPENDENCIES: run 01_DataPrep.R first
 #
@@ -8,15 +8,15 @@
 #         [Figure 6]
 # =============================================================================
 
-library(tidyverse)     # dplyr, ggplot2, tidyr, purrr
-library(here)          # project-root-relative paths
-library(conflicted)    # resolve namespace conflicts
-library(sf)            # spatial operations (for county_imperv geometry)
-library(lme4)          # glmer
-library(mgcv)          # gam
-library(emmeans)       # emtrends
-library(scales)        # squish, percent
-library(rphylopic)      # species silhouettes for plot labels
+library(tidyverse)     
+library(here)          
+library(conflicted)    
+library(sf)           
+library(lme4)         
+library(mgcv)        
+library(emmeans)      
+library(scales)       
+library(rphylopic)    
 
 conflicted::conflicts_prefer(dplyr::filter)
 conflicted::conflicts_prefer(dplyr::select)
@@ -172,10 +172,7 @@ slopes %>%
 # =============================================================================
 # 4. Forest plot [Figure 6]
 # =============================================================================
-# pooled, weighted slope per species, "all years" window only
-# (one point + CI per species). Color (BH-significance) does the work an
-# asterisk used to do. Same color palette/theme as the county-delta boxplot
-# for a consistent look.
+
 coef_df <- slopes %>%
   filter(window == "all years") %>%
   mutate(ci_low = slope - 1.96 * se, ci_high = slope + 1.96 * se,

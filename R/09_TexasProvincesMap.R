@@ -36,9 +36,6 @@ dir.create(FIG_DIR,     showWarnings = FALSE, recursive = TRUE)
 dir.create(RESULTS_DIR, showWarnings = FALSE, recursive = TRUE)
 
 texas_counties <- readRDS(file.path(PREP_DIR, "texas_counties.rds"))
-
-# Environmental layers each live in their own folder under data/
-# ecoregions_shp <- st_read(here::here("data", "tx_eco_l3", "tx_eco_l3.shp"))
 bioticprovinces_shp <- st_read(here::here("data", "TexasBioticProvinces",
                                           "TexasBioticProvinces.shp"))
 urban_shp <- st_read(here::here("data", "TxDOT_UrbanizedAreas",
@@ -59,16 +56,12 @@ cities_raw <- tibble(
 # =============================================================================
 # 1. Make boundaries and perform transformations
 # =============================================================================
-# State outline is now derived from the already-prepared
-# texas_counties (a single st_union of the county polygons), instead of a
-# fresh tigris::states() call.
 tx <- texas_counties %>%
   st_transform(4326) %>%
   st_make_valid() %>%
   st_union() %>%
   st_as_sf()
 
-# eco <- ecoregions_shp %>% st_transform(4326) %>% st_make_valid()
 eco <- bioticprovinces_shp %>% st_transform(4326) %>% st_make_valid()
 eco_name_col <- intersect(names(eco), c("ProvName"))[1]
 eco <- eco %>% mutate(eco_name = .data[[eco_name_col]])
@@ -216,6 +209,3 @@ ggsave(file.path(FIG_DIR, "texas_provinces_map.png"), p_provinces,
        width = 16, height = 12, dpi = 300)
 ggsave(file.path(FIG_DIR, "texas_provinces_map.pdf"), p_provinces,
        width = 16, height = 12, dpi = 300)
-
-summary_tbl <- eco_tx %>% st_drop_geometry() %>% count(eco_name, sort = TRUE)
-write_csv(summary_tbl, file.path(RESULTS_DIR, "texas_provinces_summary.csv"))

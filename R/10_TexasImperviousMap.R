@@ -35,7 +35,6 @@ dir.create(FIG_DIR, showWarnings = FALSE, recursive = TRUE)
 
 texas_counties <- readRDS(file.path(PREP_DIR, "texas_counties.rds"))
 county_imperv  <- readRDS(file.path(PREP_DIR, "county_imperv.rds"))
-
 urban_shp <- st_read(here::here("Data", "TxDOT_UrbanizedAreas",
                                 "TxDOT_Urbanized_Areas.shp"))
 
@@ -54,9 +53,6 @@ cities_raw <- tibble(
 # =============================================================================
 # 1. Make boundaries and perform transformations
 # =============================================================================
-# State outline is derived from the already-prepared
-# texas_counties (a single st_union of the county polygons), instead of a
-# fresh tigris::states() call.
 tx <- texas_counties %>%
   st_transform(4326) %>%
   st_make_valid() %>%

@@ -3,19 +3,18 @@
 # All data loading, cleaning, spatial joins, and derived analysis tables.
 # Run this first; downstream scripts load the saved outputs.
 #
-# Inputs:  VertNet Final CSVs (per species) + new iNat CSVs (globbed by
-#          genus_species stem), NLCD impervious raster
+# Inputs:  Data directory with VertNet and iNaturalist, NLCD impervious raster
 # Outputs: prepared/ directory with .rds files for each analysis table
 # =============================================================================
 
-library(sf)            # spatial operations, st_join, st_transform
-library(here)          # project-root-relative paths
-library(tidyverse)     # dplyr, ggplot2, readr, tidyr, purrr, lubridate, stringr
-library(conflicted)    # resolve namespace conflicts
-library(tigris)        # Census TIGER/Line county boundaries
-library(terra)         # raster operations (NLCD)
-library(exactextractr) # fast zonal statistics for rasters
-library(scales)        # squish, percent, etc. (used in downstream plots)
+library(sf)          
+library(here)   # project-root-relative paths       
+library(tidyverse)    
+library(conflicted)  
+library(tigris)        
+library(terra)       
+library(exactextractr)
+library(scales)        
 
 conflicted::conflicts_prefer(dplyr::filter)
 conflicted::conflicts_prefer(dplyr::select)
@@ -23,7 +22,6 @@ conflicted::conflicts_prefer(dplyr::select)
 # -----------------------------------------------------------------------------
 # Configuration
 # -----------------------------------------------------------------------------
-
 # Paths resolve relative to the project root via here::here(), so the repo
 # runs unchanged on any machine as long as the folder layout is preserved.
 DATA_DIR  <- here::here("data", "raw")   # occurrence CSVs (VertNet + iNat)
@@ -120,7 +118,7 @@ cat("\n")
 # Helpers
 # -----------------------------------------------------------------------------
 
-# Build a filename from a species tag and source (VertNet only now)
+# Build a filename from a species tag and source (VertNet only)
 make_fname <- function(tag, source, final = FALSE) {
   Tag <- paste0(toupper(substr(tag, 1, 1)), substr(tag, 2, nchar(tag)))
   if (final) file.path(DATA_DIR, sprintf("%s_%s_Final.csv", Tag, source))
@@ -364,7 +362,7 @@ nlcd_imperv         <- rast(NLCD_PATH)
 texas_counties_proj <- st_transform(texas_counties, crs(nlcd_imperv))
 nlcd_imperv_tx      <- crop(nlcd_imperv, ext(vect(texas_counties_proj)))
 
-# --- 4a. County means (still used by county_counts / master aggregations) -----
+# County means
 county_imperv <- texas_counties_proj %>%
   mutate(pct_impervious = exact_extract(nlcd_imperv_tx, texas_counties_proj, "mean")) %>%
   st_transform(3083)
@@ -378,11 +376,10 @@ county_imperv %>%
   print()
 cat("\n")
 
-# --- 4b. Point-level 1km-neighborhood mean impervious -------------------------
+# Point-level 1km-neighborhood mean impervious 
 # Every record is point-level (no-coordinate records were dropped upstream).
 # For each record, mean impervious within NLCD_BUFFER_M. NLCD is a contemporary
-# snapshot, so this is STATIC present-day urban cover at the record's location
-# (the fixed-footprint definition: "is this spot urban TODAY").
+# snapshot, so this is STATIC present-day urban cover at the record's location.
 cat("--- Point-level impervious (", NLCD_BUFFER_M, "m neighborhood) ---\n", sep = "")
 
 pts_sf <- urbanization_raw %>%
