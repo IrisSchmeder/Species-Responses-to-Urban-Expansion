@@ -69,7 +69,7 @@ source("R/01_DataPrep.R")   # then 03, 04, ... 10 in any order
 - [R/09_TexasProvincesMap.R](R/09_TexasProvincesMap.R): Produces map of level III ecoregions urbanized areas, major cities,  and the top four museums represented in VertNet herpetology records in Texas (SI figure 2).
 - [R/10_TexasImperviousMap.R](R/10_TexasImperviousMap.R): Produces map of percent impervious cover by county, major cities, and the top four museums represented in VertNet herpetology records in Texas (SI figure 3).
 
-###
+### Supplementary Data (Land Ownership)
 - [R/11_TexasLandOwnership.R](): Produces estimate for percent of land privately owned in Texas from USGS Gap Analysis Project (GAP), 2024, Protected Areas Database of the United States (PAD-US) 4.1 dataset. We were unable to find a suitable citation for commonly used private land percentages in Texas, so this dataset allows us to have a reasonable estimate.
 
 ## Notes
