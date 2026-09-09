@@ -14,15 +14,16 @@ All paths are resolved relative to the project root using the [`here`](https://h
 
 ```
 .
-├── R/                          # all analysis scripts
+├── R/                              # all analysis scripts
 ├── data/
-│   ├── raw/                    # occurrence CSVs (VertNet + iNaturalist) — see below
-│   ├── NLCD/                   # NLCD fractional impervious raster (.tif)
-│   ├── TexasBioticProvinces/   # Texas biotic provinces shapefile
-│   ├── TxDOT_UrbanizedAreas/   # TxDOT urbanized-areas shapefile
-│   └── prepared/               # generated .rds objects (created by 01)
-├── figures/                    # generated figures (created by scripts)
-├── results/                    # generated summary tables (created by scripts)
+│   ├── raw/                        # occurrence CSVs (VertNet + iNaturalist) — see below
+│   ├── NLCD/                       # NLCD fractional impervious raster (.tif)
+│   ├── TexasBioticProvinces/       # Texas biotic provinces shapefile
+│   ├── TxDOT_UrbanizedAreas/       # TxDOT urbanized-areas shapefile
+│   ├── PADUS4_1_State_TX_GDB_KMZ/  # GBD file with Texas land ownershi (USGS)
+│   └── prepared/                   # generated .rds objects (created by 01)
+├── figures/                        # generated figures (created by scripts)
+├── results/                        # generated summary tables (created by scripts)
 ├── TexasPairedSpecies.Rproj
 ├── README.md
 ├── LICENSE
@@ -67,6 +68,9 @@ source("R/01_DataPrep.R")   # then 03, 04, ... 10 in any order
 - [R/08_RecordsPerObserver.R](R/08_RecordsPerObserver.R): Calculates records per observer over time, by species and dataset (SI figure 1).
 - [R/09_TexasProvincesMap.R](R/09_TexasProvincesMap.R): Produces map of level III ecoregions urbanized areas, major cities,  and the top four museums represented in VertNet herpetology records in Texas (SI figure 2).
 - [R/10_TexasImperviousMap.R](R/10_TexasImperviousMap.R): Produces map of percent impervious cover by county, major cities, and the top four museums represented in VertNet herpetology records in Texas (SI figure 3).
+
+###
+- [R/11_TexasLandOwnership.R](): Produces estimate for percent of land privately owned in Texas from USGS Gap Analysis Project (GAP), 2024, Protected Areas Database of the United States (PAD-US) 4.1 dataset. We were unable to find a suitable citation for commonly used private land percentages in Texas, so this dataset allows us to have a reasonable estimate.
 
 ## Notes
 
