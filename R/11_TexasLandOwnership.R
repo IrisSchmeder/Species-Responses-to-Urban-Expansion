@@ -72,7 +72,7 @@ pub_union <- fee |>
   st_geometry() |>
   st_union()
 
-pub_clip  <- st_intersection(pub_union, tx_land)   # drops offshore/bay bottoms which appear in this dataset (These are included in the dataset becasue they are in public trust and some areas serve as oil/gas extraction sites which are owned by our state's School Land Board)
+pub_clip  <- st_intersection(pub_union, tx_land)   # drops offshore/bay bottoms which appear in this dataset (These are included in the dataset becasue they are in public trust and some areas serve as oil/gas extraction sites which are owned by our state's School Land Board 🤷)
 pub_acres <- as.numeric(st_area(pub_clip)) / M2_ACRE
 
 # UNK, unioned and clipped separately, so it can be added or not.
