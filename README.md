@@ -1,4 +1,4 @@
-# Code for Schmeder et al.
+# Code for 🐸💚🐸 Schmeder et al. 🐸💚🐸
 This repository contains the code for the manuscript "A Texas two-step: Combining two occurrence datasets reveals herpetofaunal responses to urban expansion" submitted to Conservation Biology. It provides a pipeline to combine historical museum records with modern community science observations to model species occurrences in response to urbanization. The example demonstrated here uses eight herpetofauna species native to Texas.
 
 ## Abstract
